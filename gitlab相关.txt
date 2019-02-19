@@ -1,0 +1,44 @@
+http://www.cnblogs.com/zhanglianghhh/p/9749454.html    gitlab
+
+http://blog.51cto.com/5404542/1851887
+https://www.cnblogs.com/qulianqing/p/9156112.html
+
+https://www.cnblogs.com/cnundefined/p/7095368.html     gitlab runner
+
+
+gitlab runner文档
+https://docs.gitlab.com/runner/executors/README.html#i-am-not-sure
+
+
+
+git clone https://github.com/bravist/lnmp-docker && cd lnmp-docker
+git clone https://github.com/bravist/gitlab-docker
+
+
+
+安装gitlab-ci-multi-runner
+
+    添加yum源
+
+    curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-ci-multi-runner/script.rpm.sh | sudo bash
+
+    安装
+
+    yum install gitlab-ci-multi-runner
+
+
+sudo	
+	
+PS：如果误操作修改了/etc/sudoers的权限来修改上述文件，则会导致如下所示的错误：
+
+    sudo :/etc/sudoers is world writable
+    sudo : no valid sudoers source found, quitting
+    sudo : unable to initialize poling plugin
+
+这是Linux的一种保护机制。因此，如果出现上述误操作，则需要执行如下命令来解决：
+$ pkexec chmod 0440 /etc/sudoers
+--------------------- 
+作者：SkyeBeFreeman 
+来源：CSDN 
+原文：https://blog.csdn.net/skyebefreeman/article/details/78116113 
+版权声明：本文为博主原创文章，转载请附上博文链接！

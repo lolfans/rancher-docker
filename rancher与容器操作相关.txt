@@ -1,0 +1,42 @@
+sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server:stable
+sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server:stable --db-host wp-aurora.cm76gm1onn36.rds.cn-northwest-1.amazonaws.com.cn --db-port 9929 --db-user cattle --db-pass cattle --db-name cattle
+
+
+备份信息
+DB_HOST=rm-bp1r204y03u5n3h3efo.mysql.rds.aliyuncs.com
+#维配物流数据库连接 【2018/01/19】
+WEIPEI_LOGISTICS3_DB_HOST=rm-bp18l3s08a7g16b03jo.mysql.rds.aliyuncs.com
+
+
+《维配服务器迁移测试计划》，可复制链接后用石墨文档 App 或小程序打开
+ https://shimo.im/docs/kS5ZqbqRbFoi2iPN/ 
+
+
+
+用守护进程模式启动可以后台运行 workerman  任务：
+
+php start.php start -d  （-d 守护模式启动）
+
+rancher内 服务升级命令
+rancher-compose up --upgrade --confirm-upgrade
+
+
+
+
+3.修改git版本控制的文件的权限,
+git update-index - -chmod=+x syncvertica-server.sh
+git update-index - -chmod=+x syncVerticaAddColumn-server.sh 
+
+
+
+
+
+
+curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
+yum install -y nodejs 安装npm
+npm install -g cnpm --registry=https://registry.npm.taobao.org 安装cnpm
+
+
+webpack 4.14.0 版本太高，无法执行相关指令，指令不熟悉，高版本切换到低版本，
+
+直接重新安装就行，使用 npm i webpack@3.6.0 -g  

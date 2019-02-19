@@ -1,0 +1,74 @@
+参考文章 https://yq.aliyun.com/articles/110806?spm=5176.8351553.0.0.499f1991B4V0Ly
+
+docker版本重要！！！参考rancher支持的docker版本 https://www.cnrancher.com/docs/rancher/v1.x/cn/infrastructure/hosts/#docker%E7%89%88%E6%9C%AC%E9%80%82%E7%94%A8%E5%AF%B9%E6%AF%94
+
+# step 1: 安装必要的一些系统工具
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+
+# Step 2: 添加软件源信息
+sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+
+# Step 3: 更新yum
+sudo yum makecache fast
+
+# 列出所有可安装的版本
+yum list docker-ce.x86_64 --showduplicates | sort -r  
+
+# Step 4:安装制定版本的 Docker-CE
+sudo yum install docker-ce-17.12.1.ce-1.el7.centos
+
+# Step 5:加入开机启动
+systemctl enable docker
+
+# Step6:启动
+systemctl start docker
+
+-----------------------------------------------------------------------------
+安装rancher  单点部署 其他部署参考rancher安装文档
+sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server   
+访问
+http://ip:8080/
+若不能访问
+开放安全组8080端口 再访问
+
+安装rancher-cli的参考
+rancher-cli
+https://blog.csdn.net/guduershi/article/details/77934001
+
+
+
+
+停止所有的container，这样才能够删除其中的images：
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+
+删除所有 无用镜像
+docker rmi $(docker images -q)
+
+
+//docker官方镜像库
+https://hub.docker.com/r/richarvey/nginx-php-fpm/
+
+Dockerfile镜像详解
+https://www.cnblogs.com/panwenbin-logs/p/8007348.html
+
+
+
+然后创建Docker镜像，PowerShell进入项目根目录（即Dockerfile所在目录），执行
+
+docker build -t test-images .
+
+这里需要注意的是当我们使用“Dockerfile”为Docker的配置文件名时，直接这么写，但是如果使用其他的配置文件名必须额外指定，比如指”alpine.Dockerfile”为Docker的配置文件,应该用-f指定配置文件这么写：
+
+docker build -t jacksonary/myfirstapp -f alpine.Dockerfile .
+
+
+阿里云制作镜像
+$ sudo docker login --username=username  registry.cn-qingdao.aliyuncs.com
+$ sudo docker tag [ImageId] registry.cn-qingdao.aliyuncs.com/liudashuai/images:[镜像版本号]
+$ sudo docker push registry.cn-qingdao.aliyuncs.com/liudashuai/images:[镜像版本号]
+
+
+
+wp的php项目的基础镜像
+614055248869.dkr.ecr.cn-northwest-1.amazonaws.com.cn/wp/php-nginx-base:latest
