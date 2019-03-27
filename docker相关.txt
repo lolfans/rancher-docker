@@ -1,74 +1,78 @@
-²Î¿¼ÎÄÕÂ https://yq.aliyun.com/articles/110806?spm=5176.8351553.0.0.499f1991B4V0Ly
+å‚è€ƒæ–‡ç«  https://yq.aliyun.com/articles/110806?spm=5176.8351553.0.0.499f1991B4V0Ly
 
-docker°æ±¾ÖØÒª£¡£¡£¡²Î¿¼rancherÖ§³ÖµÄdocker°æ±¾ https://www.cnrancher.com/docs/rancher/v1.x/cn/infrastructure/hosts/#docker%E7%89%88%E6%9C%AC%E9%80%82%E7%94%A8%E5%AF%B9%E6%AF%94
+dockerç‰ˆæœ¬é‡è¦ï¼ï¼ï¼å‚è€ƒrancheræ”¯æŒçš„dockerç‰ˆæœ¬ https://www.cnrancher.com/docs/rancher/v1.x/cn/infrastructure/hosts/#docker%E7%89%88%E6%9C%AC%E9%80%82%E7%94%A8%E5%AF%B9%E6%AF%94
 
-# step 1: °²×°±ØÒªµÄÒ»Ğ©ÏµÍ³¹¤¾ß
+# step 1: å®‰è£…å¿…è¦çš„ä¸€äº›ç³»ç»Ÿå·¥å…·
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 
-# Step 2: Ìí¼ÓÈí¼şÔ´ĞÅÏ¢
+# Step 2: æ·»åŠ è½¯ä»¶æºä¿¡æ¯
 sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 
-# Step 3: ¸üĞÂyum
+# Step 3: æ›´æ–°yum
 sudo yum makecache fast
 
-# ÁĞ³öËùÓĞ¿É°²×°µÄ°æ±¾
+# åˆ—å‡ºæ‰€æœ‰å¯å®‰è£…çš„ç‰ˆæœ¬
 yum list docker-ce.x86_64 --showduplicates | sort -r  
 
-# Step 4:°²×°ÖÆ¶¨°æ±¾µÄ Docker-CE
+# Step 4:å®‰è£…åˆ¶å®šç‰ˆæœ¬çš„ Docker-CE
 sudo yum install docker-ce-17.12.1.ce-1.el7.centos
 
-# Step 5:¼ÓÈë¿ª»úÆô¶¯
+# Step 5:åŠ å…¥å¼€æœºå¯åŠ¨
 systemctl enable docker
 
-# Step6:Æô¶¯
+# Step6:å¯åŠ¨
 systemctl start docker
 
 -----------------------------------------------------------------------------
-°²×°rancher  µ¥µã²¿Êğ ÆäËû²¿Êğ²Î¿¼rancher°²×°ÎÄµµ
+å®‰è£…rancher  å•ç‚¹éƒ¨ç½² å…¶ä»–éƒ¨ç½²å‚è€ƒrancherå®‰è£…æ–‡æ¡£
 sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server   
-·ÃÎÊ
+è®¿é—®
 http://ip:8080/
-Èô²»ÄÜ·ÃÎÊ
-¿ª·Å°²È«×é8080¶Ë¿Ú ÔÙ·ÃÎÊ
+è‹¥ä¸èƒ½è®¿é—®
+å¼€æ”¾å®‰å…¨ç»„8080ç«¯å£ å†è®¿é—®
 
-°²×°rancher-cliµÄ²Î¿¼
+å®‰è£…rancher-cliçš„å‚è€ƒ
 rancher-cli
 https://blog.csdn.net/guduershi/article/details/77934001
 
 
 
 
-Í£Ö¹ËùÓĞµÄcontainer£¬ÕâÑù²ÅÄÜ¹»É¾³ıÆäÖĞµÄimages£º
+åœæ­¢æ‰€æœ‰çš„containerï¼Œè¿™æ ·æ‰èƒ½å¤Ÿåˆ é™¤å…¶ä¸­çš„imagesï¼š
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 
-É¾³ıËùÓĞ ÎŞÓÃ¾µÏñ
+åˆ é™¤æ‰€æœ‰ æ— ç”¨é•œåƒ
 docker rmi $(docker images -q)
 
 
-//docker¹Ù·½¾µÏñ¿â
+//dockerå®˜æ–¹é•œåƒåº“
 https://hub.docker.com/r/richarvey/nginx-php-fpm/
 
-Dockerfile¾µÏñÏê½â
+Dockerfileé•œåƒè¯¦è§£
 https://www.cnblogs.com/panwenbin-logs/p/8007348.html
 
 
 
-È»ºó´´½¨Docker¾µÏñ£¬PowerShell½øÈëÏîÄ¿¸ùÄ¿Â¼£¨¼´DockerfileËùÔÚÄ¿Â¼£©£¬Ö´ĞĞ
+ç„¶ååˆ›å»ºDockeré•œåƒï¼ŒPowerShellè¿›å…¥é¡¹ç›®æ ¹ç›®å½•ï¼ˆå³Dockerfileæ‰€åœ¨ç›®å½•ï¼‰ï¼Œæ‰§è¡Œ
 
 docker build -t test-images .
 
-ÕâÀïĞèÒª×¢ÒâµÄÊÇµ±ÎÒÃÇÊ¹ÓÃ¡°Dockerfile¡±ÎªDockerµÄÅäÖÃÎÄ¼şÃûÊ±£¬Ö±½ÓÕâÃ´Ğ´£¬µ«ÊÇÈç¹ûÊ¹ÓÃÆäËûµÄÅäÖÃÎÄ¼şÃû±ØĞë¶îÍâÖ¸¶¨£¬±ÈÈçÖ¸¡±alpine.Dockerfile¡±ÎªDockerµÄÅäÖÃÎÄ¼ş,Ó¦¸ÃÓÃ-fÖ¸¶¨ÅäÖÃÎÄ¼şÕâÃ´Ğ´£º
+è¿™é‡Œéœ€è¦æ³¨æ„çš„æ˜¯å½“æˆ‘ä»¬ä½¿ç”¨â€œDockerfileâ€ä¸ºDockerçš„é…ç½®æ–‡ä»¶åæ—¶ï¼Œç›´æ¥è¿™ä¹ˆå†™ï¼Œä½†æ˜¯å¦‚æœä½¿ç”¨å…¶ä»–çš„é…ç½®æ–‡ä»¶åå¿…é¡»é¢å¤–æŒ‡å®šï¼Œæ¯”å¦‚æŒ‡â€alpine.Dockerfileâ€ä¸ºDockerçš„é…ç½®æ–‡ä»¶,åº”è¯¥ç”¨-fæŒ‡å®šé…ç½®æ–‡ä»¶è¿™ä¹ˆå†™ï¼š
 
 docker build -t jacksonary/myfirstapp -f alpine.Dockerfile .
 
 
-°¢ÀïÔÆÖÆ×÷¾µÏñ
+é˜¿é‡Œäº‘åˆ¶ä½œé•œåƒ
 $ sudo docker login --username=username  registry.cn-qingdao.aliyuncs.com
-$ sudo docker tag [ImageId] registry.cn-qingdao.aliyuncs.com/liudashuai/images:[¾µÏñ°æ±¾ºÅ]
-$ sudo docker push registry.cn-qingdao.aliyuncs.com/liudashuai/images:[¾µÏñ°æ±¾ºÅ]
+$ sudo docker tag [ImageId] registry.cn-qingdao.aliyuncs.com/liudashuai/images:[é•œåƒç‰ˆæœ¬å·]
+$ sudo docker push registry.cn-qingdao.aliyuncs.com/liudashuai/images:[é•œåƒç‰ˆæœ¬å·]
 
 
 
-wpµÄphpÏîÄ¿µÄ»ù´¡¾µÏñ
+wpçš„phpé¡¹ç›®çš„åŸºç¡€é•œåƒ
 614055248869.dkr.ecr.cn-northwest-1.amazonaws.com.cn/wp/php-nginx-base:latest
+
+
+alpineçš„ä¾èµ–ç¤¾åŒº
+https://pkgs.alpinelinux.org/flagged
