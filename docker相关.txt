@@ -76,3 +76,5 @@ wp的php项目的基础镜像
 
 alpine的依赖社区
 https://pkgs.alpinelinux.org/flagged
+http://dl-3.alpinelinux.org/alpine/edge/community
+http://mirrors.aliyun.com/alpine/
