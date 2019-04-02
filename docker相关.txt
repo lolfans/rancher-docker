@@ -84,6 +84,6 @@ sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 使用科大镜像 http://mirrors.ustc.edu.cn
 sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 
-alipine系统的相关apk指令详解
+alpine系统的相关apk指令详解
 https://blog.51cto.com/11975865/2357244?source=dra
 
