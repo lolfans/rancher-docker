@@ -1,3 +1,0 @@
-
-错误：oauth-private.key" does not exist 
-解决： storage权限设置好everyone允许写入，然后 php artisan passport:install 
