@@ -74,16 +74,5 @@ wp的php项目的基础镜像
 614055248869.dkr.ecr.cn-northwest-1.amazonaws.com.cn/wp/php-nginx-base:latest
 
 
-alpine的依赖社区
-https://pkgs.alpinelinux.org/flagged
-http://dl-3.alpinelinux.org/alpine/edge/community
-http://mirrors.aliyun.com/alpine/
 
-使用阿里镜像 https://mirrors.aliyun.com
-sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
-使用科大镜像 http://mirrors.ustc.edu.cn
-sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
-
-alpine系统的相关apk指令详解
-https://blog.51cto.com/11975865/2357244?source=dra
 
