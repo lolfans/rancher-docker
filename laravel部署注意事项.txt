@@ -1,4 +1,3 @@
 
-´íÎó£ºoauth-private.key" does not exist 
-
- ½â¾ö£º storageÈ¨ÏŞÉèÖÃºÃeveryoneÔÊĞíĞ´Èë£¬È»ºó php artisan passport:install 
+é”™è¯¯ï¼šoauth-private.key" does not exist 
+è§£å†³ï¼š storageæƒé™è®¾ç½®å¥½everyoneå…è®¸å†™å…¥ï¼Œç„¶å php artisan passport:install 
