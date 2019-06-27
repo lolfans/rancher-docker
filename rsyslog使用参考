@@ -1,0 +1,8 @@
+查看进程是否启动起来
+
+ps -aux | grep rsyslog 
+
+
+
+参考文件
+https://www.cnblogs.com/smallrookie/p/5677004.html
