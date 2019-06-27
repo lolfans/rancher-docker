@@ -17,6 +17,7 @@ yum list docker-ce.x86_64 --showduplicates | sort -r
 # Step 4:安装制定版本的 Docker-CE
 sudo yum install docker-ce-17.12.1.ce-1.el7.centos
 sudo yum -y install docker-ce-18.03.1.ce-1.el7.centos （rancher2.x支持的docker版本）
+
 # Step 5:加入开机启动
 systemctl enable docker
 
