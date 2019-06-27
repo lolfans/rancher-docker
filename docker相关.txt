@@ -16,7 +16,7 @@ yum list docker-ce.x86_64 --showduplicates | sort -r
 
 # Step 4:安装制定版本的 Docker-CE
 sudo yum install docker-ce-17.12.1.ce-1.el7.centos
-
+sudo yum -y install docker-ce-18.03.1.ce-1.el7.centos （rancher2.x支持的docker版本）
 # Step 5:加入开机启动
 systemctl enable docker
 
@@ -44,6 +44,8 @@ docker rm $(docker ps -a -q)
 
 删除所有 无用镜像
 docker rmi $(docker images -q)
+docker system df      命令，类似于Linux上的df命令，用于查看Docker的磁盘使用情况:
+docker system prune   命令可以用于清理磁盘，删除关闭的容器、无用的数据卷和网络，以及dangling镜像(即无tag的镜像)。
 
 
 //docker官方镜像库
