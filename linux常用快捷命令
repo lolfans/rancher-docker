@@ -1,0 +1,8 @@
+查看内存
+free -h
+
+释放内存
+echo 1 > /proc/sys/vm/drop_caches
+
+日志中查找文件
+cat  log.log | grep "train"
