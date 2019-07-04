@@ -6,7 +6,7 @@ https://www.cnblogs.com/qulianqing/p/9156112.html
 https://www.cnblogs.com/cnundefined/p/7095368.html     gitlab runner
 
 
-gitlab runnerÎÄµµ
+gitlab runneræ–‡æ¡£
 https://docs.gitlab.com/runner/executors/README.html#i-am-not-sure
 
 
@@ -16,29 +16,35 @@ git clone https://github.com/bravist/gitlab-docker
 
 
 
-°²×°gitlab-ci-multi-runner
+å®‰è£…gitlab-ci-multi-runner
 
-    Ìí¼ÓyumÔ´
+    æ·»åŠ yumæº
 
     curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-ci-multi-runner/script.rpm.sh | sudo bash
 
-    °²×°
+    å®‰è£…
 
     yum install gitlab-ci-multi-runner
 
 
 sudo	
 	
-PS£ºÈç¹ûÎó²Ù×÷ĞŞ¸ÄÁË/etc/sudoersµÄÈ¨ÏŞÀ´ĞŞ¸ÄÉÏÊöÎÄ¼ş£¬Ôò»áµ¼ÖÂÈçÏÂËùÊ¾µÄ´íÎó£º
+PSï¼šå¦‚æœè¯¯æ“ä½œä¿®æ”¹äº†/etc/sudoersçš„æƒé™æ¥ä¿®æ”¹ä¸Šè¿°æ–‡ä»¶ï¼Œåˆ™ä¼šå¯¼è‡´å¦‚ä¸‹æ‰€ç¤ºçš„é”™è¯¯ï¼š
 
     sudo :/etc/sudoers is world writable
     sudo : no valid sudoers source found, quitting
     sudo : unable to initialize poling plugin
 
-ÕâÊÇLinuxµÄÒ»ÖÖ±£»¤»úÖÆ¡£Òò´Ë£¬Èç¹û³öÏÖÉÏÊöÎó²Ù×÷£¬ÔòĞèÒªÖ´ĞĞÈçÏÂÃüÁîÀ´½â¾ö£º
+è¿™æ˜¯Linuxçš„ä¸€ç§ä¿æŠ¤æœºåˆ¶ã€‚å› æ­¤ï¼Œå¦‚æœå‡ºç°ä¸Šè¿°è¯¯æ“ä½œï¼Œåˆ™éœ€è¦æ‰§è¡Œå¦‚ä¸‹å‘½ä»¤æ¥è§£å†³ï¼š
 $ pkexec chmod 0440 /etc/sudoers
---------------------- 
-×÷Õß£ºSkyeBeFreeman 
-À´Ô´£ºCSDN 
-Ô­ÎÄ£ºhttps://blog.csdn.net/skyebefreeman/article/details/78116113 
-°æÈ¨ÉùÃ÷£º±¾ÎÄÎª²©Ö÷Ô­´´ÎÄÕÂ£¬×ªÔØÇë¸½ÉÏ²©ÎÄÁ´½Ó£¡
+
+
+
+ä¸€ç›´å¤„äºpendingçŠ¶æ€ ä¸¤ç§è§£å†³åŠæ³•
+1ã€æ‰§è¡Œgitlab-ci-multi-runner runï¼ˆä¸æ¨èä½¿ç”¨ï¼‰
+
+     ä»–ä¼šå»æ‰§è¡Œrunnerä»»åŠ¡ï¼Œä½†æ˜¯æ¯æ¬¡éƒ½éœ€è¦è¿è¡Œæ¬¡å‘½ä»¤æ‰å›å»æ‰§è¡Œä»»åŠ¡
+
+2ã€æ‰§è¡Œgitlab-ci-multi-runner restart
+
+     é‡å¯runnerï¼Œå‘ç°ä»–ä¼šè‡ªåŠ¨å»æ‰§è¡Œè§¦å‘runnerçš„ä»»åŠ¡
