@@ -8,6 +8,7 @@ alpine的依赖社区
 https://pkgs.alpinelinux.org/flagged
 http://dl-3.alpinelinux.org/alpine/edge/community
 http://mirrors.aliyun.com/alpine/
+https://mirrors.aliyun.com/alpine/
 
 使用阿里镜像 https://mirrors.aliyun.com
 sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
