@@ -73,9 +73,3 @@ $ sudo docker push registry.cn-qingdao.aliyuncs.com/liudashuai/images:[镜像版
 
 
 
-wp的php项目的基础镜像
-614055248869.dkr.ecr.cn-northwest-1.amazonaws.com.cn/wp/php-nginx-base:latest
-
-
-
-
