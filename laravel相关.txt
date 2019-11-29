@@ -2,6 +2,8 @@
 错误：oauth-private.key" does not exist 
 解决： storage权限设置好everyone允许写入，然后 php artisan passport:install 
 
+错误：No application encryption key has been specified.
+解决：php artisan key:generate
 
 
 restful api
