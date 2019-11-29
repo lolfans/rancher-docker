@@ -1,19 +1,26 @@
 alpine官网
 https://alpinelinux.org/
+alpine包
+https://pkgs.alpinelinux.org
+
+科大 alpine相关镜像
+http://mirrors.ustc.edu.cn
+http://mirrors.ustc.edu.cn/alpine/
+sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 
 
 
-
-alpine的依赖社区
-https://pkgs.alpinelinux.org/flagged
-http://dl-3.alpinelinux.org/alpine/edge/community
+阿里 alpine相关镜像
 http://mirrors.aliyun.com/alpine/
 https://mirrors.aliyun.com/alpine/
-
-使用阿里镜像 https://mirrors.aliyun.com
+https://mirrors.aliyun.com
 sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
-使用科大镜像 http://mirrors.ustc.edu.cn
-sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+
+
+dl alpine相关镜像镜像
+http://dl-3.alpinelinux.org/alpine/edge/community
+
+
 
 alpine系统的相关apk指令详解
 https://blog.51cto.com/11975865/2357244?source=dra
