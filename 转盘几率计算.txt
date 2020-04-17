@@ -34,3 +34,39 @@ function prise($arrayP)
 
 
 prise($arrayP);
+
+//输出
+[
+    {
+        "prise":"奖1",
+        "chance":10,
+        "prise_type":1,
+        "stock":10,
+        "chance_low":1,
+        "chance_high":10
+    },
+    {
+        "prise":"奖2",
+        "chance":20,
+        "prise_type":2,
+        "stock":10,
+        "chance_low":11,
+        "chance_high":30
+    },
+    {
+        "prise":"奖3",
+        "chance":10,
+        "prise_type":1,
+        "stock":10,
+        "chance_low":31,
+        "chance_high":40
+    },
+    {
+        "prise":"奖4",
+        "chance":30,
+        "prise_type":2,
+        "stock":10,
+        "chance_low":41,
+        "chance_high":70
+    }
+]
