@@ -1,0 +1,36 @@
+<?php
+
+$arrayP = array(
+    array('prise'=>'奖1','chance'=>10,'prise_type'=>1,'stock'=>10),
+    array('prise'=>'奖2','chance'=>20,'prise_type'=>2,'stock'=>10),
+    array('prise'=>'奖3','chance'=>10,'prise_type'=>1,'stock'=>10),
+    array('prise'=>'奖4','chance'=>30,'prise_type'=>2,'stock'=>10)
+
+);
+
+
+function prise($arrayP)
+{
+
+    $chanceSum = 0;
+
+    foreach ($arrayP as $key => $value) {
+
+        $arrayP[$key]['chance_low'] = $chanceSum+1;
+
+        $chanceSum += $value['chance'];
+
+        $arrayP[$key]['chance_high'] = $chanceSum;
+
+        
+    }
+    print_r(json_encode($arrayP));
+    echo "<br >";
+    print_r($chanceSum);
+}
+
+
+
+
+
+prise($arrayP);
