@@ -24,23 +24,30 @@ function prise($arrayP)
 
     }
     echo "<br />";
-    echo "------------";
+    echo "------每个奖品中奖区间计算出来-----";
     echo "<br />";
 
-    print_r(json_encode($arrayP));
+    print_r(json_encode($arrayP,JSON_UNESCAPED_UNICODE));
 
     echo "<br />";
-    echo "------------";
+    echo "------中奖总概率------";
     echo "<br />";
-    
+
     print_r($chanceSum);
 
     echo "<br />";
-    echo "------------";
+    echo "------随机中奖数字------";
     echo "<br />";
 
     $priseArr = [];
     $priseNum = mt_rand(1,$chanceSum);
+    print_r($priseNum);
+
+    echo "<br />";
+    echo "------中奖物品------";
+    echo "<br />";
+
+
     foreach ($arrayP as $k => &$v) {
         if($priseNum >= $v['chance_low'] && $priseNum<= $v['chance_high']){
             $priseArr =  $v;
@@ -52,13 +59,16 @@ function prise($arrayP)
     print_r($priseArr);
 }
 
-
+prise($arrayP);
 
 //输出
-------------
-[{"prise":"\u59561","chance":20,"prise_type":1,"stock":10,"chance_low":1,"chance_high":20},{"prise":"\u59562","chance":30,"prise_type":2,"stock":10,"chance_low":21,"chance_high":50},{"prise":"\u59563","chance":20,"prise_type":1,"stock":10,"chance_low":51,"chance_high":70},{"prise":"\u59564","chance":30,"prise_type":2,"stock":10,"chance_low":71,"chance_high":100},{"prise":"\u5956\u65e0","chance":30,"prise_type":3,"stock":10,"chance_low":101,"chance_high":130}]
-------------
+
+------每个奖品中奖区间计算出来-----
+[{"prise":"奖1","chance":20,"prise_type":1,"stock":10,"chance_low":1,"chance_high":20},{"prise":"奖2","chance":30,"prise_type":2,"stock":10,"chance_low":21,"chance_high":50},{"prise":"奖3","chance":20,"prise_type":1,"stock":10,"chance_low":51,"chance_high":70},{"prise":"奖4","chance":30,"prise_type":2,"stock":10,"chance_low":71,"chance_high":100},{"prise":"奖无","chance":30,"prise_type":3,"stock":10,"chance_low":101,"chance_high":130}]
+------中奖总概率------
 130
-------------
-Array ( [prise] => 奖2 [chance] => 30 [prise_type] => 2 [stock] => 10 [chance_low] => 21 [chance_high] => 50 ) 
+------随机中奖数字------
+85
+------中奖物品------
+Array ( [prise] => 奖4 [chance] => 30 [prise_type] => 2 [stock] => 10 [chance_low] => 71 [chance_high] => 100 ) 
    
