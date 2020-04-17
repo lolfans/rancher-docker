@@ -4,8 +4,8 @@ $arrayP = array(
     array('prise'=>'奖1','chance'=>10,'prise_type'=>1,'stock'=>10),
     array('prise'=>'奖2','chance'=>20,'prise_type'=>2,'stock'=>10),
     array('prise'=>'奖3','chance'=>10,'prise_type'=>1,'stock'=>10),
-    array('prise'=>'奖4','chance'=>30,'prise_type'=>2,'stock'=>10)
-
+    array('prise'=>'奖4','chance'=>30,'prise_type'=>2,'stock'=>10),
+    array('prise'=>'奖无','chance'=>30,'prise_type'=>3,'stock'=>10),
 );
 
 
@@ -68,5 +68,13 @@ prise($arrayP);
         "stock":10,
         "chance_low":41,
         "chance_high":70
+    },
+    {
+        "prise":"奖无",
+        "chance":30,
+        "prise_type":3,
+        "stock":10,
+        "chance_low":71,
+        "chance_high":100
     }
 ]
