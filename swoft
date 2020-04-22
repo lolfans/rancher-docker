@@ -1,1 +1,2 @@
 docker run -p 18307:18306 -v /d/soft-code:/var/www/swoft swoft/swoft
+docker run -p 18306:18306 -v /d/laragon/www/soft-code:/var/www/swoft swoft/swoft
