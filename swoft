@@ -1,0 +1,1 @@
+docker run -p 18307:18306 -v /d/soft-code:/var/www/swoft swoft/swoft
