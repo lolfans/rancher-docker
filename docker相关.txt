@@ -48,6 +48,8 @@ docker rmi $(docker images -q)
 docker system df      命令，类似于Linux上的df命令，用于查看Docker的磁盘使用情况:
 docker system prune   命令可以用于清理磁盘，删除关闭的容器、无用的数据卷和网络，以及dangling镜像(即无tag的镜像)。
 
+进入容器
+docker exec -i -t  mynginx /bin/bash
 
 //docker官方镜像库
 https://hub.docker.com/r/richarvey/nginx-php-fpm/
