@@ -32,6 +32,14 @@ restful api
 
 
 ---------容器诞生的初级形态---------https://xueyuanjun.com/post/769.html
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2020/4/27
+ * Time: 10:42
+ */
+
 interface SuperModuleInterface
 {
     /**
@@ -43,6 +51,7 @@ interface SuperModuleInterface
     public function activate(array $target);
 }
 
+
 class Superman
 {
     protected $module;
@@ -53,13 +62,16 @@ class Superman
     }
 }
 
+
 class XPower implements SuperModuleInterface
 {
     public function activate(array $target)
     {
-        echo 'xPower';
+        // 这只是个例子。。具体自行脑补
     }
 }
+
+
 class UltraBomb implements SuperModuleInterface
 {
     public function activate(array $target)
@@ -68,12 +80,6 @@ class UltraBomb implements SuperModuleInterface
     }
 }
 
-// 超能力模组
-$superModule = new XPower;
-// 初始化一个超人，并注入一个超能力模组依赖
-$superMan = new Superman($superModule);
-------------------
----------容器的高级形态---------
 class Container
 {
     protected $binds;
@@ -87,6 +93,7 @@ class Container
         } else {
             $this->instances[$abstract] = $concrete;
         }
+        print_r($this->binds);
     }
 
     public function make($abstract, $parameters = [])
@@ -110,6 +117,10 @@ $container->bind('superman', function($container, $moduleName) {
     return new Superman($container->make($moduleName));
 });
 
+
+
+
+
 // 向该 超级工厂添加超能力模组的生产脚本
 $container->bind('xpower', function($container) {
     return new XPower;
@@ -122,9 +133,9 @@ $container->bind('ultrabomb', function($container) {
 
 // ****************** 华丽丽的分割线 **********************
 // 开始启动生产
-$superman_1 = $container->make('superman', 'xpower');
-$superman_2 = $container->make('superman', 'ultrabomb');
-$superman_3 = $container->make('superman', 'xpower');
+$superman_1 = $container->make('superman', ['xpower']);
+$superman_2 = $container->make('superman', ['ultrabomb']);
+//$superman_3 = $container->make('superman', 'xpower');
 // ...随意添加
-------------------
+//print_r($container);
 
