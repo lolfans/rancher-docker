@@ -1,0 +1,2 @@
+docker run -d -p 5672:5672 -p15672:15672 --name myrabbitmq 65f55c49fd3e
+访问127.0.0.1:15672就可以看到web界面  账号guest 密码guest 登录即可
