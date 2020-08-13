@@ -1,0 +1,142 @@
+laravel框架的版本是5.8
+
+1 laravel添加rabbitMQ
+2 composer require vladimir-yuldashev/laravel-queue-rabbitmq
+3composer update 
+
+在config/app.php文件中，providers数组中添加
+
+VladimirYuldashev\LaravelQueueRabbitMQ\LaravelQueueRabbitMQServiceProvider::class,
+
+在app/config/queue.php文件中，connections数组中添加
+
+'rabbitmq' => [
+    'driver'                => 'rabbitmq',
+ 
+    'host'                  => env('RABBITMQ_HOST', '127.0.0.1'),
+    'port'                  => env('RABBITMQ_PORT', 5672),
+ 
+    'vhost'                 => env('RABBITMQ_VHOST', '/'),
+    'login'                 => env('RABBITMQ_LOGIN', 'guest'),
+    'password'              => env('RABBITMQ_PASSWORD', 'guest'),
+ 
+    'queue'                 => env('RABBITMQ_QUEUE'), // name of the default queue,
+ 
+    'exchange_declare'      => env('RABBITMQ_EXCHANGE_DECLARE', true), // create the exchange if not exists
+    'queue_declare_bind'    => env('RABBITMQ_QUEUE_DECLARE_BIND', true), // create the queue if not exists and bind to the exchange
+ 
+    'queue_params'          => [
+        'passive'           => env('RABBITMQ_QUEUE_PASSIVE', false),
+        'durable'           => env('RABBITMQ_QUEUE_DURABLE', true),
+        'exclusive'         => env('RABBITMQ_QUEUE_EXCLUSIVE', false),
+        'auto_delete'       => env('RABBITMQ_QUEUE_AUTODELETE', false),
+    ],
+ 
+    'exchange_params' => [
+        'name'        => env('RABBITMQ_EXCHANGE_NAME', null),
+        'type'        => env('RABBITMQ_EXCHANGE_TYPE', 'direct'), // more info at http://www.rabbitmq.com/tutorials/amqp-concepts.html
+        'passive'     => env('RABBITMQ_EXCHANGE_PASSIVE', false),
+        'durable'     => env('RABBITMQ_EXCHANGE_DURABLE', true), // the exchange will survive server restarts
+        'auto_delete' => env('RABBITMQ_EXCHANGE_AUTODELETE', false),
+    ],
+ 
+],
+
+在.env中添加
+
+QUEUE_CONNECTION=rabbitmq  #修改一下
+
+RABBITMQ_HOST=112.74.182.5  #要连接的主机名
+RABBITMQ_PORT=5672         #端口号
+RABBITMQ_VHOST=/
+RABBITMQ_LOGIN=admin       #mq登录名
+RABBITMQ_PASSWORD=admin     #mq登录密码
+RABBITMQ_QUEUE=test11111         #mq连接的名称（随便写）
+
+测试rabbitmq在laravel中的使用
+
+创建一个任务类
+
+php artisan make:job Queue
+
+修改QueuedTest.php的内容，下面主要的功能是添加一个时间并且转化成json
+
+<?php
+
+namespace App\Jobs;
+
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class Queue  implements ShouldQueue
+{
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    private $data;
+
+    /**
+     * Queue constructor.
+     * @param $data
+     */
+    public function __construct($data)
+    {
+        $this->data = $data;
+
+    }
+
+    /**
+     * Execute the job.
+     *
+     * @return void
+     */
+    public function handle()
+    {
+        return json_encode($this->data);
+
+    }
+}
+
+使用命令创建一个控制器
+
+php artisan make:controller QueuedController
+
+在控制器中加入如下代码
+
+<?php
+
+namespace App\Http\Controllers;
+
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Jobs\Queue;
+
+class QueuedController extends Controller
+{
+    public function Test(){
+
+        $arr=array(
+            'time'=>time()
+        );
+
+        $this->dispatch(new Queue($arr));
+
+        echo "成功";
+} }
+
+在web.php 中加入一个路由，用来调用控制器中的test方法
+
+Route::get('/test','QueuedController@test');
+
+开始测试：http://www.aa.com/index.php/test
+
+并且输入命令 php artisan queue:work 可以看到
+
+打开rabbitMQ中可以看到
+
+完毕。
