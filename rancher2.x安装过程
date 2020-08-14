@@ -1,3 +1,5 @@
+rancher的相关资源下载（http://mirror.cnrancher.com/）
+
 docker版本重要！！！参考rancher支持的docker版本 https://www.cnrancher.com/docs/rancher/v1.x/cn/infrastructure/hosts/#docker%E7%89%88%E6%9C%AC%E9%80%82%E7%94%A8%E5%AF%B9%E6%AF%94
 
 # step 1: 安装必要的一些系统工具
