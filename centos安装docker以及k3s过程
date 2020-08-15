@@ -1,7 +1,53 @@
-centos安装新版docker快捷方式
+一：先安装DOCKER
+1，yum install -y yum-utils  device-mapper-persistent-data lvm2
+2，yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+3，yum makecache fast
+4，yum -y install docker-ce
+5，systemctl enable docker
+6，systemctl start docker
 
-yum install -y yum-utils  device-mapper-persistent-data lvm2
-yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-yum makecache fast
-yum -y install docker-ce
+二：再跑一个数据库
+1，cd /data 
+2，mkdir mysql
+3，docker run --name rancher-mysql -v /data/mysql:/var/lib/mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7
+4，新建一个数据库 名为 rancher
 
+三：安装K3S
+172.17.0.9（我的测试云服务器内网IP）
+122.51.214.26（我的测试云服务器公网IP）
+1，curl -sfL https://docs.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -s - server \
+--datastore-endpoint="mysql://root:123456@tcp(172.17.0.9:3306)/rancher" --tls-san 122.51.214.26 
+2，k3s kubectl get nodes  查看集群是否安装成功
+3，k3s kubectl get pods --all-namespaces 查看集群容器情况
+4，cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+5，vim ~/.kube/config  （server改为122.51.214.26）
+6，kubectl --kubeconfig ~/.kube/config get pods --all-namespaces
+
+四：安装helm
+1，wget http://rancher-mirror.cnrancher.com/helm/v3.2.4/helm-v3.2.4-linux-amd64.tar.gz
+2，tar -zxvf helm-v3.2.4-linux-amd64.tar.gz
+3，mv linux-amd64/helm /usr/local/bin/helm
+4，helm help （查看helm安装是否完成）
+
+五：添加 Helm Chart 仓库
+1，helm repo add rancher-stable http://rancher-mirror.oss-cn-beijing.aliyuncs.com/server-charts/stable
+2，kubectl create namespace cattle-system (为 Rancher 创建 Namespace)
+
+六：证书
+1，kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.15.0/cert-manager.crds.yaml
+2，kubectl create namespace cert-manager
+3，helm repo add jetstack https://charts.jetstack.io
+4，helm repo update
+5，helm install \
+ cert-manager jetstack/cert-manager \
+ --namespace cert-manager \
+ --version v0.15.0
+6，kubectl get pods --namespace cert-manager （查看证书是否运行好）
+
+七：安装rancher 
+1，helm install rancher rancher-stable/rancher \
+ --namespace cattle-system \
+ --set hostname=122.51.214.26
+
+八：查看rancher运行 
+kubectl -n cattle-system rollout status deploy/rancher
