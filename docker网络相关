@@ -1,0 +1,3 @@
+查看自动分配的IP    docker inspect -f='{{.Name}} {{.NetworkSettings.IPAddress}} {{.HostConfig.PortBindings}}' $(docker ps -aq)
+创建网络           docker network create --subnet=172.18.0.0/16 mynetwork
+启动容器           docker run -itd -p 8091:8091 --name eurekadev --net mynetwork --ip 172.18.0.2 nginx:latest /bin/bash
