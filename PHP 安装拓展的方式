@@ -1,0 +1,42 @@
+查看远程的PHP镜像预安装的拓展
+docker run --rm php:7.2-cli php -m
+
+第一种
+----------------------------
+FROM php:7.2-cli
+ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
+RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
+    install-php-extensions gd xdebug
+-----------------------------
+第二种
+-----------------------------
+FROM php:7.2-cli
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
+RUN install-php-extensions gd xdebug
+
+
+PS:解决There is no public key available for the following key IDs: AA8E81B4331F7F50
+apt-key adv --recv-keys --keyserver keyserver.ubuntu.com AA8E81B4331F7F50
+这个后面的参数是上面报错的ID字符串。
+
+
+
+mv source.list source.list.bak
+
+echo "deb http://mirrors.aliyun.com/debian/ stretch main non-free contrib" >>/etc/apt/sources.list
+echo "deb-src http://mirrors.aliyun.com/debian/ stretch main non-free contrib" >>/etc/apt/sources.list
+echo "deb http://mirrors.aliyun.com/debian-security stretch/updates main" >>/etc/apt/sources.list
+echo "deb-src http://mirrors.aliyun.com/debian-security stretch/updates main" >>/etc/apt/sources.list
+echo "deb http://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib" >>/etc/apt/sources.list
+echo "deb-src http://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib" >>/etc/apt/sources.list
+echo "deb http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib" >>/etc/apt/sources.list
+echo "deb-src http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib" >>/etc/apt/sources.list
+
+apt-key adv --recv-keys --keyserver keyserver.ubuntu.com AA8E81B4331F7F50
+apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 04EE7237B7D453EC
+apt-key adv --recv-keys --keyserver keyserver.ubuntu.com EF0F382A1A7B6500
+
+apt-get update
+
+apt-get install  libmcrypt-dev -y
+docker-php-ext-install mcrypt
