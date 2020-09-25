@@ -1,6 +1,6 @@
 您可以通过修改daemon配置文件/etc/docker/daemon.json来使用加速器
 
-sudo mkdir -p /etc/docker
+sudo mkdir -p /etc/docker         ||    vi /etc/docker/daemon.json
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
   "registry-mirrors": ["https://8zjz6l3k.mirror.aliyuncs.com"]
