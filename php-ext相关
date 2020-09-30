@@ -91,7 +91,11 @@ docker-php-ext-install
 这个命令，是用来安装并启动PHP扩展的。
 命令格式：
 docker-php-ext-install “源码包目录名”
-
+---------------------------------
+php:7.4-fpm-alpine 是 Alpine Linux 系统版本的 PHP 容器 
+在 RUN docker-php-ext-install 之前运行以下命令更换源
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+---------------------------------
 注意点：
 
     “源码包“需要放在 /usr/src/php/ext 下
