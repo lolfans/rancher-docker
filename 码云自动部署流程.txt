@@ -1,0 +1,61 @@
+step1,  在需要部署的服务器上安装docker 环境	(具体安装自行百度)
+step2，在需要自动部署的服务器上创建目录  /var/www  作为自动部署项目的项目目录 	（是可以放多个项目在此，你也可以自行定义）
+step3,  服务器端口放开，我这里用8085端口
+step4,  docker run -d -p 8085:80 -v /var/www:/var/www/html   --name my-php-webhook  registry.cn-qingdao.aliyuncs.com/liudashuai/nginx-php-supervisor-new:latest  
+step5,  在/var/www目录下放入 webhook.php,处理码云的webhook请求 
+
+(此处镜像为本人通过alpine系统制作的集成镜像 不需要额外在服务器上安装nginx与PHP，且包含git,镜像运行起来 需要占用内存45M，具体可以看 https://github.com/lolfans/nginx-php-supervisor-new )
+
+所以最终 码云上的webhook配置的url就是 （服务器IP:8085/webhook.php） webhook.php的具体逻辑操作可以自行调整
+以下是webhook.php的代码:
+---------------
+<?php
+#码云develop代码提交时，触发请求此回调地址
+$fileName   = 'hook.log';   //自动部署过程的日志文件
+$prefix     = ' --- ';      //日志分割符，便于观察
+$secret     = 'secret';     //自己在码云配置的签名秘钥
+$username   = 'username';   //码云的账号
+$password   = 'password';   //码云的密码
+try {
+    file_put_contents($fileName, date('Y-m-d : H:i:s') . $prefix . 'auto update code starting!' . PHP_EOL, FILE_APPEND);
+    //秘钥验签
+    $timestamp  = $_SERVER['HTTP_X_GITEE_TIMESTAMP'];   //webhook请求头
+    $token      = $_SERVER['HTTP_X_GITEE_TOKEN'];
+    $signStr    = "$timestamp\n$secret";
+    $endStr     = base64_encode(hash_hmac('sha256', $signStr, $secret, true));
+    if (!$token == $endStr) {
+        throw new Exception('数据签名异常');
+    }
+    $get_origin_data = file_get_contents("php://input");
+    if (!$get_origin_data) {
+        throw new Exception('数据异常');
+    }
+    file_put_contents($fileName, date('Y-m-d : H:i:s') . $prefix . $get_origin_data . PHP_EOL, FILE_APPEND);
+    $dataArray = json_decode($get_origin_data, true);
+    $branch = str_replace('refs/heads/', '', $dataArray['ref']);    //提取分支名
+
+    $autoBranch = ['develop'];  //此处只允许develop分支提交时触发自动部署处理 其他环境与对应分支需要对应调整
+    if (!in_array($branch, $autoBranch)) {
+        throw new Exception('该分支不作自动部署处理');
+    }
+    $projectName = $dataArray['project']['name'];   //项目名称
+
+    if (file_exists($projectName)) {    //更新
+        $command = 'cd ' . $projectName . ' && git fetch --all && git reset --hard origin/' . $branch . ' && chmod -R 777 ../' . $projectName;
+    } else {    //克隆
+        $cloneUrl       = $dataArray['project']['clone_url'];   //克隆地址
+        $completeUrl    = str_replace('gitee.com', $username . ':' . $password . '@gitee.com', $cloneUrl);  //带上账号密码
+        $command        = 'git clone ' . $completeUrl . ' && cd ' . $projectName . ' && git fetch --all && git reset --hard origin/' . $branch . ' && chmod -R 777 ../' . $projectName;
+    }
+    shell_exec($command);
+    file_put_contents($fileName, date('Y-m-d : H:i:s') . $prefix . $command . PHP_EOL, FILE_APPEND);
+    file_put_contents($fileName, date('Y-m-d : H:i:s') . $prefix . 'auto update code Done!' . PHP_EOL, FILE_APPEND);
+
+    print_r('success');
+} catch (Exception $e) {
+    file_put_contents($fileName, date('Y-m-d : H:i:s') . $prefix . $e->getMessage() . PHP_EOL, FILE_APPEND);
+
+    print_r('fail');
+}
+
+
