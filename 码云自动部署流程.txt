@@ -1,10 +1,11 @@
 step1,  在需要部署的服务器上安装docker 环境	(具体安装自行百度)
 step2，在需要自动部署的服务器上创建目录  /var/www  作为自动部署项目的项目目录 	（是可以放多个项目在此，你也可以自行定义）
 step3,  服务器端口放开，我这里用8085端口
-step4,  docker run -d -p 8085:80 -v /var/www:/var/www/html   --name my-php-webhook  registry.cn-qingdao.aliyuncs.com/liudashuai/nginx-php-supervisor-new:latest  
+step4,  执行  docker run -d -p 8085:80 -v /var/www:/var/www/html   --name my-php-webhook  registry.cn-qingdao.aliyuncs.com/liudashuai/nginx-php-supervisor-new:latest  
 step5,  在/var/www目录下放入 webhook.php,处理码云的webhook请求 
 
 (此处镜像为本人通过alpine系统制作的集成镜像 不需要额外在服务器上安装nginx与PHP，且包含git,镜像运行起来 需要占用内存45M，具体可以看 https://github.com/lolfans/nginx-php-supervisor-new )
+
 
 所以最终 码云上的webhook配置的url就是 （服务器IP:8085/webhook.php） webhook.php的具体逻辑操作可以自行调整
 以下是webhook.php的代码:
@@ -23,7 +24,7 @@ try {
     $token      = $_SERVER['HTTP_X_GITEE_TOKEN'];
     $signStr    = "$timestamp\n$secret";
     $endStr     = base64_encode(hash_hmac('sha256', $signStr, $secret, true));
-    if (!$token == $endStr) {
+    if ($token != $endStr) {
         throw new Exception('数据签名异常');
     }
     $get_origin_data = file_get_contents("php://input");
@@ -55,7 +56,13 @@ try {
 } catch (Exception $e) {
     file_put_contents($fileName, date('Y-m-d : H:i:s') . $prefix . $e->getMessage() . PHP_EOL, FILE_APPEND);
 
-    print_r('fail');
+    print_r($e->getMessage());
 }
+
+
+
+
+
+
 
 
