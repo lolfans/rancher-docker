@@ -46,7 +46,7 @@ try {
     } else {    //克隆
         $cloneUrl       = $dataArray['project']['clone_url'];   //克隆地址
         $completeUrl    = str_replace('gitee.com', $username . ':' . $password . '@gitee.com', $cloneUrl);  //带上账号密码
-        $command        = 'git clone ' . $completeUrl . ' && cd ' . $projectName . ' && git fetch --all && git reset --hard origin/' . $branch . ' && chmod -R 777 ../' . $projectName;
+        $command        = 'git clone ' . $completeUrl . ' && cd ' . $projectName . ' && git fetch --all && git checkout ' . $branch . ' && chmod -R 777 ../' . $projectName;
     }
     shell_exec($command);
     file_put_contents($fileName, date('Y-m-d : H:i:s') . $prefix . $command . PHP_EOL, FILE_APPEND);
