@@ -1,8 +1,9 @@
 step1,  在需要部署的服务器上安装docker 环境	(具体安装自行百度)
-step2，在需要自动部署的服务器上创建目录  /var/www  作为自动部署项目的项目目录 	（是可以放多个项目在此，你也可以自行定义）
+step2， 在需要自动部署的服务器上创建目录  /var/www  作为自动部署项目的项目目录 	（是可以放多个项目在此，你也可以自行定义）
 step3,  服务器端口放开，我这里用8085端口
 step4,  执行  docker run -d -p 8085:80 -v /var/www:/var/www/html   --name my-php-webhook  registry.cn-qingdao.aliyuncs.com/liudashuai/nginx-php-supervisor-new:latest  
-step5,  在/var/www目录下放入 webhook.php,处理码云的webhook请求 
+step5,  在/var/www目录下放入 webhook.php,处理码云的webhook请求
+step6,  在码云的项目-》管理-》webhooks配置URL 与秘钥。
 
 (此处镜像为本人通过alpine系统制作的集成镜像 不需要额外在服务器上安装nginx与PHP，且包含git,镜像运行起来 需要占用内存45M，具体可以看 https://github.com/lolfans/nginx-php-supervisor-new )
 
