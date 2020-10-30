@@ -1,0 +1,19 @@
+latitude是维度字段
+longitude是经度字段
+
+29.635910452418024传入坐标的维度
+106.573398439209传入坐标的经度
+
+SELECT
+	*,
+	ROUND(
+	6378.138 * 2 * ASIN(
+	SQRT(
+	POW( SIN( ( 29.635910452418024 * PI( ) / 180 - latitude * PI( ) / 180 ) / 2 ), 2 ) + COS( 29.635910452418024 * PI( ) / 180 ) * COS( latitude * PI( ) / 180 ) * POW( SIN( ( 106.573398439209 * PI( ) / 180 - longitude * PI( ) / 180 ) / 2 ), 2 ) 
+	) 
+	) * 1000 
+	) AS distance 
+FROM
+	vo_merchant 
+ORDER BY
+	distance ASC
