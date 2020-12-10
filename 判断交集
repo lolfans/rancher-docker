@@ -1,1 +1,12 @@
 $secondKill = \DB::select('select * from product_second_goods where product_id = '.$value['product_id'].' and sku_id='.$value['sku_id'].' and((start_time >="'.$value['start_time'].'" AND start_time <="'.$value['end_time'].'") OR(start_time <="'.$value['start_time'].'"  AND end_time >="'.$value['end_time'].'") OR(end_time >="'.$value['start_time'].'" AND end_time <="'.$value['end_time'].'"))');
+
+
+SELECT
+	* 
+FROM
+	product_second_goods 
+WHERE
+	( start_time >= 'start_time' AND start_time <= 'end_time' ) 
+	OR ( start_time <= 'start_time' AND end_time >= 'end_time' ) 
+	OR ( end_time >= 'start_time' AND end_time <= 'end_time' ) 
+	)
