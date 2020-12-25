@@ -8,10 +8,12 @@ docker run --rm php:7.2-cli php -m
 
 如果还需要安装其他拓展，以GD库为例， 基本方法是
 首先 apk add gd
-其次 cd /usr/src/php/ext/ 查看是否添加进来，如果添加进来
+其次 cd /usr/src/php/ext/ 查看是否添加进来， 如果不在该目录下，请先移动到 此目录下，先在根目录寻找 find -name gd,再mv gd /usr/src/php/ext/gd
 然后 docker-php-ext-install gd 进行安装
 
+当然本人优先推荐上述方式。且基于alpine
 
+其他驳杂的有以下方式，只做参考
 第一种
 ----------------------------
 FROM php:7.2-cli
