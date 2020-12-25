@@ -2,24 +2,14 @@
 docker run --rm php:7.2-cli php -m
 
 如果是php:alpine官方镜像
-
-那么先查看php镜像已经安装的拓展 php -m
-
-其次再执行 cd /usr/src/php/ext/ 
-
-查看里面存在的可安装拓展，
-
-通过 docker-php-ext-install xxx 安装拓展
+首先 查看php镜像已经安装的拓展 php -m
+其次 再执行 cd /usr/src/php/ext/ 查看里面存在的可安装拓展
+然后 通过 docker-php-ext-install xxx 安装拓展
 
 如果还需要安装其他拓展，以GD库为例， 基本方法是
-
-首先
-
-apk add gd，
-
-再 cd /usr/src/php/ext/ 查看是否添加进来，
-
-如果添加进来 就用 docker-php-ext-install gd进行安装
+首先 apk add gd
+其次 cd /usr/src/php/ext/ 查看是否添加进来，如果添加进来
+然后 docker-php-ext-install gd 进行安装
 
 
 第一种
